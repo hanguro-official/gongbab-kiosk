@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:gongbab/app/router/app_routes.dart';
 
 class PhoneNumberInputScreen extends StatefulWidget {
   const PhoneNumberInputScreen({super.key});
@@ -31,12 +33,7 @@ class _PhoneNumberInputScreenState extends State<PhoneNumberInputScreen> {
   void onOkPressed() {
     if (pin.length == pinLength) {
       // Handle authentication logic here
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Verifying PIN: $pin'),
-          backgroundColor: const Color(0xFF3b82f6),
-        ),
-      );
+      context.push(AppRoutes.success);
       // Reset after verification
       setState(() {
         pin = '';
