@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PhoneNumberInputScreen extends StatefulWidget {
   const PhoneNumberInputScreen({super.key});
@@ -60,12 +61,12 @@ class _PhoneNumberInputScreenState extends State<PhoneNumberInputScreen> {
                     '휴대폰 번호',
                     style: TextStyle(
                       fontSize: 32,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w900,
                       color: Colors.white,
                       letterSpacing: 1.5,
                     ),
                   ),
-                  const SizedBox(height: 4),
+                  SizedBox(height: 4.h),
                   RichText(
                     text: const TextSpan(
                       children: [
@@ -74,7 +75,7 @@ class _PhoneNumberInputScreenState extends State<PhoneNumberInputScreen> {
                           style: TextStyle(
                             fontSize: 32,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                            color: Color(0xFF136bec),
                           ),
                         ),
                         TextSpan(
@@ -82,7 +83,7 @@ class _PhoneNumberInputScreenState extends State<PhoneNumberInputScreen> {
                           style: TextStyle(
                             fontSize: 32,
                             fontWeight: FontWeight.bold,
-                            color: Color(0xFF3b82f6),
+                            color: Color(0xFF136bec),
                           ),
                         ),
                         TextSpan(
@@ -96,9 +97,9 @@ class _PhoneNumberInputScreenState extends State<PhoneNumberInputScreen> {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 16),
+                  SizedBox(height: 8.h),
                   const Text(
-                    'INDUSTRIAL CAFETERIA SYSTEM V2.4',
+                    'INDUSTRIAL RESTAURANT SYSTEM V1.0',
                     style: TextStyle(
                       fontSize: 12,
                       color: Color(0xFF6b7280),
@@ -106,7 +107,6 @@ class _PhoneNumberInputScreenState extends State<PhoneNumberInputScreen> {
                     ),
                   ),
                   const Spacer(),
-
                   // PIN Display
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 40),
@@ -172,11 +172,11 @@ class _PhoneNumberInputScreenState extends State<PhoneNumberInputScreen> {
                   children: [
                     // Number rows
                     Expanded(child: _buildNumberRow(['1', '2', '3'])),
-                    const SizedBox(height: 12),
+                    SizedBox(height: 12.h),
                     Expanded(child: _buildNumberRow(['4', '5', '6'])),
-                    const SizedBox(height: 12),
+                    SizedBox(height: 12.h),
                     Expanded(child: _buildNumberRow(['7', '8', '9'])),
-                    const SizedBox(height: 12),
+                    SizedBox(height: 12.h),
 
                     // Bottom row with delete, 0, and OK
                     Expanded(
@@ -203,7 +203,7 @@ class _PhoneNumberInputScreenState extends State<PhoneNumberInputScreen> {
                             child: _buildKeypadButton(
                               text: 'OK',
                               onPressed: onOkPressed,
-                              backgroundColor: const Color(0xFF3b82f6),
+                              backgroundColor: const Color(0xFF135bec),
                               isEnabled: pin.length == pinLength,
                             ),
                           ),
