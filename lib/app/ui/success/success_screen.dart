@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:gongbab/app/router/app_router.dart';
 
 class SuccessScreen extends StatefulWidget {
   const SuccessScreen({super.key});
@@ -14,7 +16,7 @@ class _SuccessScreenState extends State<SuccessScreen>
   late AnimationController _animationController;
   late Animation<double> _scaleAnimation;
   late Animation<double> _fadeAnimation;
-  int remainingSeconds = 20;
+  int remainingSeconds = 2;
   Timer? _countdownTimer;
   double _progress = 1.0;
 
@@ -65,7 +67,7 @@ class _SuccessScreenState extends State<SuccessScreen>
         _countdownTimer?.cancel();
         // Navigate back or to home screen
         if (mounted) {
-          Navigator.of(context).pop();
+          // context.pop();
         }
       }
     });
@@ -110,8 +112,8 @@ class _SuccessScreenState extends State<SuccessScreen>
                     child: FadeTransition(
                       opacity: _fadeAnimation,
                       child: Container(
-                        width: 280.w,
-                        height: 280.w,
+                        width: 280.r,
+                        height: 280.r,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           gradient: RadialGradient(
@@ -125,8 +127,8 @@ class _SuccessScreenState extends State<SuccessScreen>
                         ),
                         child: Center(
                           child: Container(
-                            width: 160.w,
-                            height: 160.w,
+                            width: 160.r,
+                            height: 160.r,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               gradient: const LinearGradient(
@@ -147,7 +149,7 @@ class _SuccessScreenState extends State<SuccessScreen>
                             ),
                             child: Icon(
                               Icons.check,
-                              size: 80.sp,
+                              size: 80.r,
                               color: const Color(0xFF1a1f2e),
                             ),
                           ),
@@ -156,32 +158,28 @@ class _SuccessScreenState extends State<SuccessScreen>
                     ),
                   ),
 
-                  SizedBox(height: 60.h),
-
+                  const Spacer(),
                   // Success message in Korean
                   Text(
                     '식권 체크 완료',
                     style: TextStyle(
                       fontSize: 36.sp,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w900,
                       color: Colors.white,
                       height: 1.3,
                     ),
                   ),
-
-                  SizedBox(height: 16.h),
-
+                  SizedBox(height: 8.h),
                   Text(
                     '맛있게 식사하세요',
                     style: TextStyle(
                       fontSize: 24.sp,
+                      fontWeight: FontWeight.w600,
                       color: const Color(0xFF9ca3af),
                       height: 1.3,
                     ),
                   ),
-
-                  SizedBox(height: 60.h),
-
+                  const Spacer(),
                   // Approved button
                   Container(
                     padding: EdgeInsets.symmetric(
@@ -227,7 +225,7 @@ class _SuccessScreenState extends State<SuccessScreen>
                     children: [
                       Icon(
                         Icons.refresh,
-                        size: 16.sp,
+                        size: 16.r,
                         color: const Color(0xFF6b7280),
                       ),
                       SizedBox(width: 8.w),
