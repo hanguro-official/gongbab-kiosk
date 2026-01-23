@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gongbab/app/ui/phone_number_input/phone_number_input_screen.dart';
 
 void main() {
@@ -11,16 +12,18 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        brightness: Brightness.dark,
-        scaffoldBackgroundColor: const Color(0xFF1a1f2e),
-        primaryColor: const Color(0xFF3b82f6),
-      ),
-      home: const PhoneNumberInputScreen(),
-      debugShowCheckedModeBanner: false,
-    );
+    return ScreenUtilInit(
+        builder: (context, child) => MaterialApp(
+              title: 'Flutter Demo',
+              theme: ThemeData(
+                brightness: Brightness.dark,
+                scaffoldBackgroundColor: const Color(0xFF1a1f2e),
+                primaryColor: const Color(0xFF3b82f6),
+                fontFamily: 'Pretendard',
+              ),
+              home: const PhoneNumberInputScreen(),
+              debugShowCheckedModeBanner: false,
+            ));
   }
 }
 
