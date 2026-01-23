@@ -50,11 +50,12 @@ class _PhoneNumberInputScreenState extends State<PhoneNumberInputScreen> {
         child: Column(
           children: [
             Expanded(
+              flex: 3,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   // Title Section
-                  const SizedBox(height: 40),
+                  const Spacer(),
                   const Text(
                     '휴대폰 번호',
                     style: TextStyle(
@@ -104,44 +105,51 @@ class _PhoneNumberInputScreenState extends State<PhoneNumberInputScreen> {
                       letterSpacing: 1.2,
                     ),
                   ),
-                  const SizedBox(height: 60),
+                  const Spacer(),
 
                   // PIN Display
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: List.generate(pinLength, (index) {
-                      return Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 8),
-                        width: 70,
-                        height: 70,
-                        decoration: BoxDecoration(
-                          color: const Color(0xFF2d3548),
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border(
-                            bottom: BorderSide(
-                              color: index < pin.length
-                                  ? const Color(0xFF3b82f6)
-                                  : const Color(0xFF2d3548),
-                              width: 3,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 40),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: List.generate(pinLength, (index) {
+                        return Expanded(
+                          child: AspectRatio(
+                            aspectRatio: 1,
+                            child: Container(
+                              margin:
+                                  const EdgeInsets.symmetric(horizontal: 8),
+                              decoration: BoxDecoration(
+                                color: const Color(0xFF2d3548),
+                                borderRadius: BorderRadius.circular(12),
+                                border: Border(
+                                  bottom: BorderSide(
+                                    color: index < pin.length
+                                        ? const Color(0xFF3b82f6)
+                                        : const Color(0xFF2d3548),
+                                    width: 4,
+                                  ),
+                                ),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  index < pin.length ? pin[index] : '—',
+                                  style: TextStyle(
+                                    fontSize: 32,
+                                    fontWeight: FontWeight.bold,
+                                    color: index < pin.length
+                                        ? Colors.white
+                                        : const Color(0xFF4b5563),
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                        child: Center(
-                          child: Text(
-                            index < pin.length ? pin[index] : '—',
-                            style: TextStyle(
-                              fontSize: 32,
-                              fontWeight: FontWeight.bold,
-                              color: index < pin.length
-                                  ? Colors.white
-                                  : const Color(0xFF4b5563),
-                            ),
-                          ),
-                        ),
-                      );
-                    }),
+                        );
+                      }),
+                    ),
                   ),
-                  const SizedBox(height: 24),
+                  const Spacer(),
                   const Text(
                     'EMPLOYEE VERIFICATION REQUIRED',
                     style: TextStyle(
@@ -150,60 +158,67 @@ class _PhoneNumberInputScreenState extends State<PhoneNumberInputScreen> {
                       letterSpacing: 2,
                     ),
                   ),
+                  const Spacer(),
                 ],
               ),
             ),
 
             // Keypad
-            Container(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                children: [
-                  // Number rows
-                  _buildNumberRow(['1', '2', '3']),
-                  const SizedBox(height: 12),
-                  _buildNumberRow(['4', '5', '6']),
-                  const SizedBox(height: 12),
-                  _buildNumberRow(['7', '8', '9']),
-                  const SizedBox(height: 12),
+            Expanded(
+              flex: 4,
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  children: [
+                    // Number rows
+                    Expanded(child: _buildNumberRow(['1', '2', '3'])),
+                    const SizedBox(height: 12),
+                    Expanded(child: _buildNumberRow(['4', '5', '6'])),
+                    const SizedBox(height: 12),
+                    Expanded(child: _buildNumberRow(['7', '8', '9'])),
+                    const SizedBox(height: 12),
 
-                  // Bottom row with delete, 0, and OK
-                  Row(
-                    children: [
-                      Expanded(
-                        child: _buildKeypadButton(
-                          icon: Icons.close,
-                          onPressed: onDeletePressed,
-                          backgroundColor: const Color(0xFF2d3548),
-                          iconColor: const Color(0xFFef4444),
-                        ),
+                    // Bottom row with delete, 0, and OK
+                    Expanded(
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: _buildKeypadButton(
+                              icon: Icons.backspace,
+                              onPressed: onDeletePressed,
+                              backgroundColor: const Color(0xFF2d3548),
+                              iconColor: const Color(0xFFef4444),
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: _buildKeypadButton(
+                              text: '0',
+                              onPressed: () => onNumberPressed('0'),
+                              backgroundColor: const Color(0xFF2d3548),
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: _buildKeypadButton(
+                              text: 'OK',
+                              onPressed: onOkPressed,
+                              backgroundColor: const Color(0xFF3b82f6),
+                              isEnabled: pin.length == pinLength,
+                            ),
+                          ),
+                        ],
                       ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: _buildKeypadButton(
-                          text: '0',
-                          onPressed: () => onNumberPressed('0'),
-                          backgroundColor: const Color(0xFF2d3548),
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: _buildKeypadButton(
-                          text: 'OK',
-                          onPressed: onOkPressed,
-                          backgroundColor: const Color(0xFF3b82f6),
-                          isEnabled: pin.length == pinLength,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+                    ),
+                  ],
+                ),
               ),
             ),
 
             // Status Bar
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -238,7 +253,7 @@ class _PhoneNumberInputScreenState extends State<PhoneNumberInputScreen> {
       children: numbers.map((number) {
         return Expanded(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 6),
+            padding: const EdgeInsets.symmetric(horizontal: 4),
             child: _buildKeypadButton(
               text: number,
               onPressed: () => onNumberPressed(number),
@@ -264,17 +279,19 @@ class _PhoneNumberInputScreenState extends State<PhoneNumberInputScreen> {
       child: InkWell(
         onTap: isEnabled ? onPressed : null,
         borderRadius: BorderRadius.circular(12),
-        child: Container(
-          height: 70,
-          alignment: Alignment.center,
-          child: icon != null
-              ? Icon(icon, color: iconColor ?? Colors.white, size: 28)
-              : Text(
-            text!,
-            style: const TextStyle(
-              fontSize: 28,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
+        child: SizedBox.expand(
+          child: FittedBox(
+            child: Center(
+              child: icon != null
+                  ? Icon(icon, color: iconColor ?? Colors.white)
+                  : Text(
+                      text!,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
+                    ),
             ),
           ),
         ),
