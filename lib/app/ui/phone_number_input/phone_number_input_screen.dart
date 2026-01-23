@@ -279,22 +279,22 @@ class _PhoneNumberInputScreenState extends State<PhoneNumberInputScreen> {
       child: InkWell(
         onTap: isEnabled ? onPressed : null,
         borderRadius: BorderRadius.circular(12),
-        child: SizedBox.expand(
-          child: FittedBox(
-            child: Center(
-              child: icon != null
-                  ? Icon(icon, color: iconColor ?? Colors.white)
-                  : Text(
-                      text!,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        fontSize: 20,
-                      ),
+        child: LayoutBuilder(builder: (context, constraints) {
+          return Center(
+            child: icon != null
+                ? Icon(icon,
+                    color: iconColor ?? Colors.white,
+                    size: constraints.maxHeight * 0.4)
+                : Text(
+                    text!,
+                    style: TextStyle(
+                      fontSize: constraints.maxHeight * 0.4,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
                     ),
-            ),
-          ),
-        ),
+                  ),
+          );
+        }),
       ),
     );
   }
