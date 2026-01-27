@@ -1,22 +1,29 @@
 import 'package:gongbab/data/network/api_service.dart';
 import 'package:gongbab/data/models/kiosk_status_model.dart';
+import 'package:gongbab/domain/entities/kiosk_status.dart'; // Domain Layer 엔티티 임포트
+import 'package:gongbab/domain/repositories/kiosk_repository.dart'; // Domain Layer 리포지토리 인터페이스 임포트
 
-// 이 클래스는 나중에 Domain Layer의 추상 리포지토리 인터페이스를 구현하게 됩니다.
-class KioskRepositoryImpl {
+class KioskRepositoryImpl implements KioskRepository { // KioskRepository 인터페이스 구현
   final ApiService _apiService;
 
   KioskRepositoryImpl(this._apiService);
 
-  Future<KioskStatusModel> getKioskStatus() async {
+  @override
+  Future<KioskStatus> getKioskStatus() async {
     final response = await _apiService.getKioskStatus();
-    // 여기서는 Map<String, dynamic>을 직접 KioskStatusModel로 변환합니다.
-    // 실제 앱에서는 에러 처리 로직이 더 추가될 수 있습니다.
-    return KioskStatusModel.fromJson(response);
+    // Data Layer 모델을 Domain Layer 엔티티로 변환
+    final model = KioskStatusModel.fromJson(response);
+    return KioskStatus(
+      status: model.status,
+      message: model.message,
+      location: model.location,
+      lastUpdated: model.lastUpdated,
+    );
   }
 
-  Future<Map<String, dynamic>> checkTicket(String ticketId) async {
-    final response = await _apiService.checkTicket(ticketId);
-    // 식권 체크인 응답은 간단한 Map으로 반환하도록 가정합니다.
-    return response;
+  @override
+  Future<void> checkTicket(String ticketId) async {
+    await _apiService.checkTicket(ticketId);
+    // API 호출 후 반환값이 없으므로 void 처리
   }
 }
