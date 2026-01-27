@@ -37,6 +37,9 @@ dependencies:
   cupertino_icons: ^1.0.8
   flutter_screenutil:
   go_router: ^15.1.2
+  dio: ^5.4.3+1 # HTTP 클라이언트
+  json_annotation: ^4.9.0 # JSON 직렬화/역직렬화 어노테이션
+  pretty_dio_logger: ^1.0.0 # Dio 로깅
 
 dev_dependencies:
   flutter_test:
@@ -48,6 +51,8 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^4.0.0
+  json_serializable: ^6.8.0 # JSON 직렬화/역직렬화 코드 생성
+  build_runner: ^2.4.9 # 코드 생성기 실행
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
