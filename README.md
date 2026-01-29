@@ -44,6 +44,43 @@
 | :---: | :---: |
 | ![Select Name Dialog](screenshots/simulator_screenshot_E17DA38B-5A81-45E9-9BBA-535EEE5932B4.png) | ![Success](screenshots/simulator_screenshot_3F338646-0EBF-4D22-98D7-EA65B08FC81C.png) |
 
+## File Structure (lib)
+
+```
+lib/
+│   ├── main.dart
+│   ├── app/
+│   │   ├── router/
+│   │   │   ├── app_router.dart
+│   │   │   └── app_routes.dart
+│   │   └── ui/
+│   │       ├── phone_number_input/
+│   │       │   └── phone_number_input_screen.dart
+│   │       ├── select_name/
+│   │       │   ├── fake_worker.dart
+│   │       │   └── select_name_dialog.dart
+│   │       └── success/
+│   │           └── success_screen.dart
+│   ├── data/
+│   │   ├── models/
+│   │   │   ├── kiosk_status_model.dart
+│   │   │   └── kiosk_status_model.g.dart
+│   │   ├── network/
+│   │   │   └── api_service.dart
+│   │   └── repositories/
+│   │       └── kiosk_repository_impl.dart
+│   ├── di/
+│   │   ├── injection.config.dart
+│   │   └── injection.dart
+│   └── domain/
+│       ├── entities/
+│       │   └── kiosk_status.dart
+│       ├── repositories/
+│       │   └── kiosk_repository.dart
+│       └── usecases/
+│           ├── check_ticket_usecase.dart
+│           └── get_kiosk_status_usecase.dart
+```
 
 ## Getting Started
 
