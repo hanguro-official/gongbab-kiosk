@@ -1,6 +1,4 @@
-import 'package:equatable/equatable.dart';
-
-class KioskStatus extends Equatable {
+class KioskStatus {
   final String status;
   final String message;
   final String location;
@@ -14,5 +12,19 @@ class KioskStatus extends Equatable {
   });
 
   @override
-  List<Object?> get props => [status, message, location, lastUpdated];
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is KioskStatus &&
+          runtimeType == other.runtimeType &&
+          status == other.status &&
+          message == other.message &&
+          location == other.location &&
+          lastUpdated == other.lastUpdated;
+
+  @override
+  int get hashCode =>
+      status.hashCode ^
+      message.hashCode ^
+      location.hashCode ^
+      lastUpdated.hashCode;
 }
