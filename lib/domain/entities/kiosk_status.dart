@@ -1,14 +1,10 @@
 class KioskStatus {
   final String status;
-  final String message;
-  final String location;
-  final DateTime lastUpdated;
+  final String serverTime;
 
   const KioskStatus({
     required this.status,
-    required this.message,
-    required this.location,
-    required this.lastUpdated,
+    required this.serverTime,
   });
 
   @override
@@ -17,14 +13,8 @@ class KioskStatus {
       other is KioskStatus &&
           runtimeType == other.runtimeType &&
           status == other.status &&
-          message == other.message &&
-          location == other.location &&
-          lastUpdated == other.lastUpdated;
+          serverTime == other.serverTime;
 
   @override
-  int get hashCode =>
-      status.hashCode ^
-      message.hashCode ^
-      location.hashCode ^
-      lastUpdated.hashCode;
+  int get hashCode => status.hashCode ^ serverTime.hashCode;
 }
