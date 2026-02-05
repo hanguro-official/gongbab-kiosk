@@ -13,6 +13,6 @@ class EmployeeLookupModel {
     required this.count,
   });
 
-  factory EmployeeLookupModel.fromJson(Map<String, dynamic> json) => _$EmployeeLookupResponseModelFromJson(json);
-  Map<String, dynamic> toJson() => _$EmployeeLookupResponseModelToJson(this);
+  factory EmployeeLookupModel.fromJson(Map<String, dynamic> json) => _$EmployeeLookupModelFromJson(json);
+  Map<String, dynamic> toJson() => _$EmployeeLookupModelToJson(this);
 }

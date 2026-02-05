@@ -6,8 +6,7 @@ part of 'employee_lookup_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-EmployeeLookupModel _$EmployeeLookupResponseModelFromJson(
-        Map<String, dynamic> json) =>
+EmployeeLookupModel _$EmployeeLookupModelFromJson(Map<String, dynamic> json) =>
     EmployeeLookupModel(
       matches: (json['matches'] as List<dynamic>)
           .map((e) => EmployeeMatchModel.fromJson(e as Map<String, dynamic>))
@@ -15,7 +14,7 @@ EmployeeLookupModel _$EmployeeLookupResponseModelFromJson(
       count: (json['count'] as num).toInt(),
     );
 
-Map<String, dynamic> _$EmployeeLookupResponseModelToJson(
+Map<String, dynamic> _$EmployeeLookupModelToJson(
         EmployeeLookupModel instance) =>
     <String, dynamic>{
       'matches': instance.matches,
