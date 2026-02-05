@@ -1,14 +1,14 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'employee_lookup_response_model.dart';
+part of 'employee_lookup_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-EmployeeLookupResponseModel _$EmployeeLookupResponseModelFromJson(
+EmployeeLookupModel _$EmployeeLookupResponseModelFromJson(
         Map<String, dynamic> json) =>
-    EmployeeLookupResponseModel(
+    EmployeeLookupModel(
       matches: (json['matches'] as List<dynamic>)
           .map((e) => EmployeeMatchModel.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -16,7 +16,7 @@ EmployeeLookupResponseModel _$EmployeeLookupResponseModelFromJson(
     );
 
 Map<String, dynamic> _$EmployeeLookupResponseModelToJson(
-        EmployeeLookupResponseModel instance) =>
+        EmployeeLookupModel instance) =>
     <String, dynamic>{
       'matches': instance.matches,
       'count': instance.count,
