@@ -6,7 +6,7 @@ import 'package:gongbab/di/injection.dart'; // DI 설정 파일 임포트
 
 void main() async { // 비동기 초기화를 위해 main 함수를 async로 변경
   WidgetsFlutterBinding.ensureInitialized(); // Flutter 엔진 초기화 보장
-  configureDependencies();
+  await configureDependencies();
 
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
