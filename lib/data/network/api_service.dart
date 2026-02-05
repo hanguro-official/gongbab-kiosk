@@ -4,6 +4,7 @@ import 'package:gongbab/data/network/app_api_client.dart';
 import 'package:gongbab/data/network/rest_api_client.dart';
 import 'package:gongbab/domain/utils/result.dart';
 import 'package:injectable/injectable.dart';
+import 'package:gongbab/data/models/employee_lookup_response_model.dart'; // Import new model
 
 @singleton
 class ApiService {
@@ -33,6 +34,20 @@ class ApiService {
       path: '/ticket/checkin',
       data: {'ticketId': ticketId},
       fromJson: CommonModel.fromJson,
+    );
+  }
+
+  Future<Result<EmployeeLookupResponseModel>> getEmployeeCandidates({
+    required int restaurantId,
+    required String phoneLastFour,
+  }) async {
+    return _appApiClient.request(
+      method: RestMethod.get,
+      path: '/api/v1/restaurants/$restaurantId/kiosk/employees/lookup',
+      queryParameters: {
+        'phoneLastFour': phoneLastFour,
+      },
+      fromJson: EmployeeLookupResponseModel.fromJson,
     );
   }
 }
