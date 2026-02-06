@@ -2,7 +2,7 @@ sealed class Result<T> {
   const Result();
 
   factory Result.success(T value) => Success(value);
-  factory Result.failure(String code, Map<String, dynamic>? data) => Failure(code, data);
+  factory Result.failure(String success, Map<String, dynamic>? data) => Failure(success, data);
   factory Result.error(String error) => Error(error);
 
   R when<R>({
@@ -13,7 +13,7 @@ sealed class Result<T> {
     if (this is Success) {
       return success((this as Success).value);
     } else if (this is Failure) {
-      return failure((this as Failure).code, (this as Failure).data);
+      return failure((this as Failure).success, (this as Failure).data);
     } else if (this is Error) {
       return error((this as Error).error);
     }
@@ -28,9 +28,9 @@ final class Success<T> extends Result<T> {
 }
 
 final class Failure<T> extends Result<T> {
-  const Failure(this.code, this.data);
+  const Failure(this.success, this.data);
 
-  final String code;
+  final String success;
   final Map<String, dynamic>? data;
 }
 

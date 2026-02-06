@@ -29,7 +29,7 @@ class KioskRepositoryImpl implements KioskRepository { // KioskRepository 인터
         status: model.status,
         serverTime: model.serverTime,
       )),
-      failure: (code, data) => Result.failure(code, data),
+      failure: (success, data) => Result.failure(success, data),
       error: (error) => Result.error(error),
     );
   }
@@ -42,7 +42,7 @@ class KioskRepositoryImpl implements KioskRepository { // KioskRepository 인터
         success: model.success, // Assuming Common.code maps to CommonModel.success
         data: model.data,
       )),
-      failure: (code, data) => Result.failure(code, data),
+      failure: (success, data) => Result.failure(success, data),
       error: (error) => Result.error(error),
     );
   }
@@ -68,7 +68,7 @@ class KioskRepositoryImpl implements KioskRepository { // KioskRepository 인터
             .toList(),
         count: model.count,
       )),
-      failure: (code, data) => Result.failure(code, data),
+      failure: (success, data) => Result.failure(success, data),
       error: (error) => Result.error(error),
     );
   }
