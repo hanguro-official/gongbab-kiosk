@@ -7,7 +7,7 @@ sealed class Result<T> {
 
   R when<R>({
     required R Function(T value) success,
-    required R Function(String code, Map<String, dynamic>? data) failure,
+    required R Function(String success, Map<String, dynamic>? data) failure,
     required R Function(String error) error,
   }) {
     if (this is Success) {

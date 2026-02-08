@@ -1,11 +1,10 @@
-import 'package:gongbab/data/models/common_model.dart';
+import 'package:gongbab/data/models/employee_lookup_model.dart'; // Import new model
+import 'package:gongbab/data/models/kiosk_check_in_model.dart'; // Import new model
 import 'package:gongbab/data/models/kiosk_status_model.dart';
 import 'package:gongbab/data/network/app_api_client.dart';
 import 'package:gongbab/data/network/rest_api_client.dart';
 import 'package:gongbab/domain/utils/result.dart';
 import 'package:injectable/injectable.dart';
-import 'package:gongbab/data/models/employee_lookup_model.dart'; // Import new model
-import 'package:gongbab/data/models/kiosk_check_in_model.dart'; // Import new model
 
 @singleton
 class ApiService {
