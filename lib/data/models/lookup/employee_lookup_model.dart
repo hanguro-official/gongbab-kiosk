@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:gongbab/data/models/employee_match_model.dart';
+import 'package:gongbab/data/models/lookup/employee_match_model.dart';
 
 part 'employee_lookup_model.g.dart';
 

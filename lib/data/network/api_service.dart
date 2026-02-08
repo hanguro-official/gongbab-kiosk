@@ -1,6 +1,6 @@
-import 'package:gongbab/data/models/employee_lookup_model.dart'; // Import new model
-import 'package:gongbab/data/models/kiosk_check_in_model.dart'; // Import new model
-import 'package:gongbab/data/models/kiosk_status_model.dart';
+import 'package:gongbab/data/models/lookup/employee_lookup_model.dart'; // Import new model
+import 'package:gongbab/data/models/check_in/kiosk_check_in_model.dart'; // Import new model
+import 'package:gongbab/data/models/status/kiosk_status_model.dart';
 import 'package:gongbab/data/network/app_api_client.dart';
 import 'package:gongbab/data/network/rest_api_client.dart';
 import 'package:gongbab/domain/utils/result.dart';

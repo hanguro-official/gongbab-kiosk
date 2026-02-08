@@ -1,5 +1,5 @@
-import 'package:gongbab/domain/entities/employee.dart';
-import 'package:gongbab/domain/entities/company.dart';
+import 'package:gongbab/domain/entities/check_in/employee.dart';
+import 'package:gongbab/domain/entities/check_in/company.dart';
 
 class KioskCheckIn {
   final String result;

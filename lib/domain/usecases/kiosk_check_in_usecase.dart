@@ -1,4 +1,4 @@
-import 'package:gongbab/domain/entities/kiosk_check_in.dart';
+import 'package:gongbab/domain/entities/check_in/kiosk_check_in.dart';
 import 'package:gongbab/domain/repositories/kiosk_repository.dart';
 import 'package:gongbab/domain/utils/result.dart';
 

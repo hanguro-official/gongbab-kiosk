@@ -1,4 +1,4 @@
-import 'package:gongbab/domain/entities/kiosk_status.dart';
+import 'package:gongbab/domain/entities/status/kiosk_status.dart';
 
 // UI State
 sealed class PhoneNumberInputUiState {}

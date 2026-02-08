@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:gongbab/data/models/employee_model.dart';
-import 'package:gongbab/data/models/company_model.dart';
+import 'package:gongbab/data/models/check_in/employee_model.dart';
+import 'package:gongbab/data/models/check_in/company_model.dart';
 
 part 'kiosk_check_in_model.g.dart';
 

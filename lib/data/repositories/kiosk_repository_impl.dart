@@ -1,15 +1,13 @@
 import 'package:gongbab/data/network/api_service.dart';
-import 'package:gongbab/domain/entities/kiosk_status.dart'; // Domain Layer 엔티티 임포트
+import 'package:gongbab/domain/entities/check_in/company.dart'; // Import new entity
+import 'package:gongbab/domain/entities/check_in/employee.dart'; // Import new entity
+import 'package:gongbab/domain/entities/check_in/kiosk_check_in.dart'; // Import new entity
+import 'package:gongbab/domain/entities/lookup/employee_lookup.dart'; // Import new entity
+import 'package:gongbab/domain/entities/lookup/employee_match.dart'; // Import new entity
+import 'package:gongbab/domain/entities/status/kiosk_status.dart'; // Domain Layer 엔티티 임포트
 import 'package:gongbab/domain/repositories/kiosk_repository.dart'; // Domain Layer 리포지토리 인터페이스 임포트
 import 'package:gongbab/domain/utils/result.dart';
 import 'package:injectable/injectable.dart'; // injectable 임포트
-import 'package:gongbab/domain/entities/common.dart'; // Import the domain entity
-import 'package:gongbab/domain/entities/employee_lookup.dart'; // Import new entity
-import 'package:gongbab/domain/entities/employee_match.dart'; // Import new entity
-import 'package:gongbab/domain/entities/kiosk_check_in.dart'; // Import new entity
-import 'package:gongbab/domain/entities/employee.dart'; // Import new entity
-import 'package:gongbab/domain/entities/company.dart'; // Import new entity
-import 'package:gongbab/data/models/kiosk_check_in_model.dart'; // Import new model
 
 @LazySingleton(as: KioskRepository) // KioskRepository 인터페이스의 구현체로 지연 로딩 싱글톤 등록
 class KioskRepositoryImpl implements KioskRepository { // KioskRepository 인터페이스 구현

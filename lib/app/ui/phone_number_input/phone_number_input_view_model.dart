@@ -30,7 +30,7 @@ class PhoneNumberInputViewModel extends ChangeNotifier {
     _setUiState(PhoneNumberInputLoading());
 
     // Dummy data for testing
-    const int restaurantId = 1;
+    const int restaurantId = 092;
     const String kioskCode = "FCT-092";
     const String clientTime = "2026-02-01T08:40:12";
 
