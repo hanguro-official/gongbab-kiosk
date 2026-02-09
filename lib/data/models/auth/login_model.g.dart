@@ -9,8 +9,10 @@ part of 'login_model.dart';
 LoginModel _$LoginModelFromJson(Map<String, dynamic> json) => LoginModel(
       accessToken: json['accessToken'] as String,
       refreshToken: json['refreshToken'] as String,
-      restaurant:
-          RestaurantModel.fromJson(json['restaurant'] as Map<String, dynamic>),
+      restaurant: json['restaurant'] == null
+          ? null
+          : RestaurantModel.fromJson(
+              json['restaurant'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$LoginModelToJson(LoginModel instance) =>

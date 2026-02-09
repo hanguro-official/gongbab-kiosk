@@ -4,7 +4,7 @@ import 'package:gongbab/domain/entities/auth/restaurant_entity.dart';
 class LoginEntity extends Equatable {
   final String accessToken;
   final String refreshToken;
-  final RestaurantEntity restaurant;
+  final RestaurantEntity? restaurant;
 
   const LoginEntity({
     required this.accessToken,

@@ -8,12 +8,12 @@ part 'login_model.g.dart';
 class LoginModel {
   final String accessToken;
   final String refreshToken;
-  final RestaurantModel restaurant;
+  final RestaurantModel? restaurant;
 
   LoginModel({
     required this.accessToken,
     required this.refreshToken,
-    required this.restaurant,
+    this.restaurant,
   });
 
   factory LoginModel.fromJson(Map<String, dynamic> json) => _$LoginModelFromJson(json);
@@ -24,7 +24,7 @@ class LoginModel {
     return LoginEntity(
       accessToken: accessToken,
       refreshToken: refreshToken,
-      restaurant: restaurant.toEntity(),
+      restaurant: restaurant?.toEntity(),
     );
   }
 }
