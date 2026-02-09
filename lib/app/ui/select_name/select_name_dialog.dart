@@ -2,16 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'fake_worker.dart';
+import 'package:gongbab/domain/entities/lookup/employee_match.dart';
 
 class SelectNameDialog extends StatelessWidget {
-  final List<Worker> workers;
-  final Function(Worker) onWorkerSelected;
+  final List<EmployeeMatch> employees;
+  final Function(EmployeeMatch) onEmployeeSelected;
 
   const SelectNameDialog({
     super.key,
-    required this.workers,
-    required this.onWorkerSelected,
+    required this.employees,
+    required this.onEmployeeSelected,
   });
 
   @override
@@ -70,15 +70,15 @@ class SelectNameDialog extends StatelessWidget {
               child: ListView.builder(
                 shrinkWrap: true,
                 padding: const EdgeInsets.symmetric(horizontal: 20),
-                itemCount: workers.length,
+                itemCount: employees.length,
                 itemBuilder: (context, index) {
-                  final worker = workers[index];
+                  final employee = employees[index];
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 12),
-                    child: _WorkerCard(
-                      worker: worker,
+                    child: _EmployeeCard(
+                      employee: employee,
                       onTap: () {
-                        onWorkerSelected(worker);
+                        onEmployeeSelected(employee);
                         Navigator.of(context).pop();
                       },
                     ),
@@ -121,12 +121,12 @@ class SelectNameDialog extends StatelessWidget {
   }
 }
 
-class _WorkerCard extends StatelessWidget {
-  final Worker worker;
+class _EmployeeCard extends StatelessWidget {
+  final EmployeeMatch employee;
   final VoidCallback onTap;
 
-  const _WorkerCard({
-    required this.worker,
+  const _EmployeeCard({
+    required this.employee,
     required this.onTap,
   });
 
@@ -147,7 +147,7 @@ class _WorkerCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      worker.name,
+                      employee.name,
                       style: TextStyle(
                         fontSize: 16.sp,
                         fontWeight: FontWeight.bold,
@@ -156,7 +156,7 @@ class _WorkerCard extends StatelessWidget {
                     ),
                     SizedBox(height: 4.h),
                     Text(
-                      '사번: ${worker.employeeId} (${worker.department})',
+                      '사번: ${employee.employeeId} (${employee.companyName})',
                       style: TextStyle(
                         fontSize: 12.sp,
                         color: Colors.white.withOpacity(0.8),
