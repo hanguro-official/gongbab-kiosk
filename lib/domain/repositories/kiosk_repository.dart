@@ -1,14 +1,10 @@
-import 'package:gongbab/domain/entities/common.dart';
+import 'package:gongbab/domain/entities/auth/login_entity.dart';
+import 'package:gongbab/domain/entities/check_in/kiosk_check_in.dart'; // Import new entity
+import 'package:gongbab/domain/entities/lookup/employee_lookup.dart'; // Import new entity
 import 'package:gongbab/domain/entities/status/kiosk_status.dart';
 import 'package:gongbab/domain/utils/result.dart';
-import 'package:gongbab/domain/entities/lookup/employee_lookup.dart'; // Import new entity
-import 'package:gongbab/domain/entities/check_in/kiosk_check_in.dart'; // Import new entity
-import 'package:gongbab/domain/entities/auth/login_entity.dart';
 
 abstract class KioskRepository {
-  Future<Result<LoginEntity>> login({
-    required String code,
-  });
   Future<Result<KioskStatus>> getKioskStatus({
     required int restaurantId,
     required String kioskCode,

@@ -17,18 +17,6 @@ class KioskRepositoryImpl implements KioskRepository { // KioskRepository 인터
   KioskRepositoryImpl(this._apiService);
 
   @override
-  Future<Result<LoginEntity>> login({
-    required String code,
-  }) async {
-    final result = await _apiService.login(code: code);
-    return result.when(
-      success: (model) => Result.success(model.toEntity()),
-      failure: (code, data) => Result.failure(code, data),
-      error: (error) => Result.error(error),
-    );
-  }
-
-  @override
   Future<Result<KioskStatus>> getKioskStatus({
     required int restaurantId,
     required String kioskCode,
@@ -109,4 +97,5 @@ class KioskRepositoryImpl implements KioskRepository { // KioskRepository 인터
       error: (error) => Result.error(error),
     );
   }
+
 }

@@ -1,10 +1,10 @@
 import 'package:gongbab/data/auth/auth_token_manager.dart';
 import 'package:gongbab/domain/entities/auth/login_entity.dart';
-import 'package:gongbab/domain/repositories/kiosk_repository.dart';
+import 'package:gongbab/domain/repositories/auth_repository.dart';
 import 'package:gongbab/domain/utils/result.dart';
 
 class LoginUseCase {
-  final KioskRepository repository;
+  final AuthRepository repository;
   final AuthTokenManager authTokenManager;
 
   LoginUseCase(this.repository, this.authTokenManager);

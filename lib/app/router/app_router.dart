@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gongbab/app/ui/login/login_screen.dart';
 import 'package:gongbab/app/ui/phone_number_input/phone_number_input_screen.dart';
 import 'package:gongbab/app/router/app_routes.dart';
 import 'package:go_router/go_router.dart';
@@ -10,6 +11,12 @@ class AppRouter {
     routes: <RouteBase>[
       GoRoute(
         path: AppRoutes.root,
+        builder: (BuildContext context, GoRouterState state) {
+          return const LoginScreen();
+        },
+      ),
+      GoRoute(
+        path: AppRoutes.phoneNumberInput,
         builder: (BuildContext context, GoRouterState state) {
           return const PhoneNumberInputScreen();
         },

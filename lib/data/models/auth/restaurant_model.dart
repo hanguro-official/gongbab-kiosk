@@ -1,17 +1,21 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:gongbab/domain/entities/auth/restaurant_entity.dart';
 
-part 'restaurant_model.freezed.dart';
 part 'restaurant_model.g.dart';
 
-@freezed
-class RestaurantModel with _$RestaurantModel {
-  const factory RestaurantModel({
-    required int id,
-    required String name,
-  }) = _RestaurantModel;
+@JsonSerializable()
+class RestaurantModel {
+  final int id;
+  final String name;
+
+  RestaurantModel({
+    required this.id,
+    required this.name,
+  });
 
   factory RestaurantModel.fromJson(Map<String, dynamic> json) => _$RestaurantModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$RestaurantModelToJson(this);
 
   RestaurantEntity toEntity() {
     return RestaurantEntity(
