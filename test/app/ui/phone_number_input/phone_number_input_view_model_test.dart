@@ -8,6 +8,7 @@ import 'package:gongbab/domain/entities/lookup/employee_lookup.dart';
 import 'package:gongbab/domain/entities/lookup/employee_match.dart';
 import 'package:gongbab/domain/entities/status/kiosk_status.dart';
 import 'package:gongbab/domain/utils/result.dart' hide Error;
+import 'package:connectivity_plus/connectivity_plus.dart'; // Import ConnectivityResult
 
 import '../../../test_helper.dart';
 import 'mocks.mocks.dart';
@@ -17,6 +18,7 @@ void main() {
   late MockGetKioskStatusUseCase mockGetKioskStatusUseCase;
   late MockGetEmployeeCandidatesUseCase mockGetEmployeeCandidatesUseCase;
   late MockKioskCheckInUseCase mockKioskCheckInUseCase;
+  late MockConnectivity mockConnectivity;
 
   setUpAll(() {
     registerDummyFallbacks();
@@ -26,10 +28,12 @@ void main() {
     mockGetKioskStatusUseCase = MockGetKioskStatusUseCase();
     mockGetEmployeeCandidatesUseCase = MockGetEmployeeCandidatesUseCase();
     mockKioskCheckInUseCase = MockKioskCheckInUseCase();
+    mockConnectivity = MockConnectivity();
     viewModel = PhoneNumberInputViewModel(
       mockGetKioskStatusUseCase,
       mockGetEmployeeCandidatesUseCase,
       mockKioskCheckInUseCase,
+      mockConnectivity,
     );
   });
 
@@ -39,13 +43,14 @@ void main() {
     final checkInSuccess = KioskCheckIn(result: 'LOGGED', message: 'Success', mealLogId: 1, mealType: 'LUNCH', mealDate: '2024-01-01', employee: null, company: null, eatenAt: '2024-01-01');
     final checkInAlreadyLogged = KioskCheckIn(result: 'ALREADY_LOGGED', message: '이미 체크인되었습니다.', mealLogId: 1, mealType: 'LUNCH', mealDate: '2024-01-01', employee: null, company: null, eatenAt: '2024-01-01');
 
-    test('ScreenInitialized event fetches kiosk status', () async {
+    test('ScreenInitialized event fetches kiosk status and wifi status (connected)', () async {
       // Arrange
       when(mockGetKioskStatusUseCase.execute(
         restaurantId: anyNamed('restaurantId'),
         kioskCode: anyNamed('kioskCode'),
         clientTime: anyNamed('clientTime'),
       )).thenAnswer((_) async => Result.success(kioskStatus));
+      when(mockConnectivity.checkConnectivity()).thenAnswer((_) async => [ConnectivityResult.wifi]);
 
       // Act
       viewModel.onEvent(ScreenInitialized());
@@ -59,6 +64,31 @@ void main() {
       await Future.microtask(() {}); // Allow state to update
       expect(viewModel.uiState, isA<KioskStatusLoaded>());
       expect((viewModel.uiState as KioskStatusLoaded).kioskStatus, kioskStatus);
+      expect((viewModel.uiState as KioskStatusLoaded).isWifiConnected, true);
+    });
+
+    test('ScreenInitialized event fetches kiosk status and wifi status (disconnected)', () async {
+      // Arrange
+      when(mockGetKioskStatusUseCase.execute(
+        restaurantId: anyNamed('restaurantId'),
+        kioskCode: anyNamed('kioskCode'),
+        clientTime: anyNamed('clientTime'),
+      )).thenAnswer((_) async => Result.success(kioskStatus));
+      when(mockConnectivity.checkConnectivity()).thenAnswer((_) async => [ConnectivityResult.none]);
+
+      // Act
+      viewModel.onEvent(ScreenInitialized());
+
+      // Assert
+      await untilCalled(mockGetKioskStatusUseCase.execute(
+        restaurantId: anyNamed('restaurantId'),
+        kioskCode: anyNamed('kioskCode'),
+        clientTime: anyNamed('clientTime'),
+      ));
+      await Future.microtask(() {}); // Allow state to update
+      expect(viewModel.uiState, isA<KioskStatusLoaded>());
+      expect((viewModel.uiState as KioskStatusLoaded).kioskStatus, kioskStatus);
+      expect((viewModel.uiState as KioskStatusLoaded).isWifiConnected, false);
     });
 
     test('PhoneNumberEntered event with 0 candidates returns Error state', () async {
