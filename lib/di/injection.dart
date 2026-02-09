@@ -10,6 +10,7 @@ import 'package:gongbab/domain/usecases/kiosk_check_in_usecase.dart'; // Import 
 import 'package:gongbab/domain/usecases/login_usecase.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:gongbab/data/auth/auth_token_manager.dart';
+import 'package:dio/dio.dart'; // New import
 
 final getIt = GetIt.instance;
 
@@ -49,4 +50,7 @@ abstract class RegisterModule {
 
   @lazySingleton
   Connectivity get connectivity => Connectivity();
+
+  @lazySingleton // Provide Dio instance
+  Dio get dio => Dio();
 }

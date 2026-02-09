@@ -2,12 +2,15 @@ import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:injectable/injectable.dart';
 import 'package:gongbab/data/network/rest_api_client.dart';
-import 'package:gongbab/config/api_config.dart'; // Import the api_config.dart
+import 'package:gongbab/config/api_config.dart';
+import 'package:gongbab/data/auth/auth_token_manager.dart';
+import 'package:gongbab/data/network/api_service.dart';
+import 'package:gongbab/data/network/auth_interceptor.dart';
 
 @singleton
 class AppApiClient extends RestApiClient {
-  AppApiClient() : super(dio: Dio()) {
-    dio.options.baseUrl = baseUrl; // Use the baseUrl from api_config.dart
+  AppApiClient(AuthTokenManager authTokenManager, Dio dio) : super(dio: dio) {
+    dio.options.baseUrl = baseUrl;
     dio.options.connectTimeout = const Duration(seconds: 5);
     dio.options.receiveTimeout = const Duration(seconds: 3);
     dio.options.contentType = 'application/json';
@@ -24,5 +27,6 @@ class AppApiClient extends RestApiClient {
       compact: true,
       maxWidth: 90,
     ));
+    dio.interceptors.add(AuthInterceptor(authTokenManager, dio));
   }
 }

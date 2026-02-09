@@ -9,15 +9,19 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:connectivity_plus/connectivity_plus.dart' as _i895;
+import 'package:dio/dio.dart' as _i361;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:shared_preferences/shared_preferences.dart' as _i460;
 
+import '../app/router/app_router.dart' as _i559;
+import '../app/ui/login/login_view_model.dart' as _i1050;
 import '../app/ui/phone_number_input/phone_number_input_view_model.dart'
     as _i513;
 import '../data/auth/auth_token_manager.dart' as _i702;
 import '../data/network/api_service.dart' as _i589;
 import '../data/network/app_api_client.dart' as _i133;
+import '../data/network/auth_interceptor.dart' as _i803;
 import '../data/repositories/auth_repository_impl.dart' as _i74;
 import '../data/repositories/kiosk_repository_impl.dart' as _i400;
 import '../domain/repositories/auth_repository.dart' as _i800;
@@ -44,12 +48,22 @@ extension GetItInjectableX on _i174.GetIt {
       () => registerModule.prefs,
       preResolve: true,
     );
-    gh.singleton<_i133.AppApiClient>(() => _i133.AppApiClient());
     gh.lazySingleton<_i895.Connectivity>(() => registerModule.connectivity);
-    gh.singleton<_i589.ApiService>(
-        () => _i589.ApiService(gh<_i133.AppApiClient>()));
+    gh.lazySingleton<_i361.Dio>(() => registerModule.dio);
     gh.lazySingleton<_i702.AuthTokenManager>(
         () => _i702.AuthTokenManager(gh<_i460.SharedPreferences>()));
+    gh.singleton<_i559.AppRouter>(
+        () => _i559.AppRouter(gh<_i702.AuthTokenManager>()));
+    gh.factory<_i803.AuthInterceptor>(() => _i803.AuthInterceptor(
+          gh<_i702.AuthTokenManager>(),
+          gh<_i361.Dio>(),
+        ));
+    gh.singleton<_i133.AppApiClient>(() => _i133.AppApiClient(
+          gh<_i702.AuthTokenManager>(),
+          gh<_i361.Dio>(),
+        ));
+    gh.singleton<_i589.ApiService>(
+        () => _i589.ApiService(gh<_i133.AppApiClient>()));
     gh.lazySingleton<_i800.AuthRepository>(
         () => _i74.AuthRepositoryImpl(gh<_i589.ApiService>()));
     gh.lazySingleton<_i587.KioskRepository>(
@@ -58,6 +72,8 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i800.AuthRepository>(),
           gh<_i702.AuthTokenManager>(),
         ));
+    gh.factory<_i1050.LoginViewModel>(
+        () => _i1050.LoginViewModel(gh<_i634.LoginUseCase>()));
     gh.lazySingleton<_i5.GetKioskStatusUseCase>(() =>
         registerModule.getKioskStatusUseCase(gh<_i587.KioskRepository>()));
     gh.lazySingleton<_i649.GetEmployeeCandidatesUseCase>(() => registerModule

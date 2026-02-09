@@ -64,7 +64,7 @@ class _PhoneNumberInputScreenState extends State<PhoneNumberInputScreen> {
 
         if (state.isWifiConnected) {
           _wifiStatusText = 'CONNECTED';
-          _wifiStatusColor = const Color(0xFF6b7280); // Gray
+          _wifiStatusColor = const Color(0xFF10b981); // Green
         } else {
           _wifiStatusText = 'DISCONNECTED';
           _wifiStatusColor = const Color(0xFFef4444); // Red
