@@ -1,3 +1,4 @@
+import 'package:gongbab/data/models/auth/login_response_model.dart';
 import 'package:gongbab/data/models/lookup/employee_lookup_model.dart'; // Import new model
 import 'package:gongbab/data/models/check_in/kiosk_check_in_model.dart'; // Import new model
 import 'package:gongbab/data/models/status/kiosk_status_model.dart';
@@ -11,6 +12,19 @@ class ApiService {
   final AppApiClient _appApiClient;
 
   ApiService(this._appApiClient);
+
+  Future<Result<LoginResponseModel>> login({
+    required String code,
+  }) async {
+    return _appApiClient.request(
+      method: RestMethod.post,
+      path: '/api/v1/auth/login',
+      data: {
+        'code': code,
+      },
+      fromJson: LoginResponseModel.fromJson,
+    );
+  }
 
   Future<Result<KioskStatusModel>> getKioskStatus({
     required int restaurantId,

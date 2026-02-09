@@ -45,6 +45,8 @@ dependencies:
   injectable: ^2.4.2 # get_it과 함께 코드 생성을 통한 의존성 주입
   logger: ^2.5.0 # 로깅 라이브러리
   connectivity_plus: ^7.0.0
+  freezed_annotation: ^3.1.0
+  shared_preferences: ^2.5.3
 
 dev_dependencies:
   flutter_test:
@@ -61,6 +63,7 @@ dev_dependencies:
   build_runner: ^2.4.9 # 코드 생성기 실행
   mockito: ^5.4.4
   test: ^1.25.7
+  freezed: ^3.0.0-0.0.dev
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

@@ -8,12 +8,25 @@ import 'package:gongbab/domain/entities/status/kiosk_status.dart'; // Domain Lay
 import 'package:gongbab/domain/repositories/kiosk_repository.dart'; // Domain Layer 리포지토리 인터페이스 임포트
 import 'package:gongbab/domain/utils/result.dart';
 import 'package:injectable/injectable.dart'; // injectable 임포트
+import 'package:gongbab/domain/entities/auth/login_entity.dart'; // Import new entity
 
 @LazySingleton(as: KioskRepository) // KioskRepository 인터페이스의 구현체로 지연 로딩 싱글톤 등록
 class KioskRepositoryImpl implements KioskRepository { // KioskRepository 인터페이스 구현
   final ApiService _apiService;
 
   KioskRepositoryImpl(this._apiService);
+
+  @override
+  Future<Result<LoginEntity>> login({
+    required String code,
+  }) async {
+    final result = await _apiService.login(code: code);
+    return result.when(
+      success: (model) => Result.success(model.toEntity()),
+      failure: (code, data) => Result.failure(code, data),
+      error: (error) => Result.error(error),
+    );
+  }
 
   @override
   Future<Result<KioskStatus>> getKioskStatus({

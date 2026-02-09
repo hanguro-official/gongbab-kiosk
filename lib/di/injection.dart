@@ -6,6 +6,9 @@ import 'package:gongbab/domain/usecases/get_kiosk_status_usecase.dart';
 import 'package:gongbab/domain/usecases/get_employee_candidates_usecase.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:gongbab/domain/usecases/kiosk_check_in_usecase.dart'; // Import new use case
+import 'package:gongbab/domain/usecases/login_usecase.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:gongbab/data/auth/auth_token_manager.dart';
 
 final getIt = GetIt.instance;
 
@@ -15,11 +18,14 @@ final getIt = GetIt.instance;
   asExtension: true, // default
 )
 Future<void> configureDependencies() async {
-  getIt.init();
+  await getIt.init();
 }
 
 @module
 abstract class RegisterModule {
+  @preResolve
+  Future<SharedPreferences> get prefs => SharedPreferences.getInstance();
+
   @lazySingleton // Use lazySingleton for use cases
   GetKioskStatusUseCase getKioskStatusUseCase(KioskRepository repository) {
     return GetKioskStatusUseCase(repository);
@@ -33,6 +39,11 @@ abstract class RegisterModule {
   @lazySingleton
   KioskCheckInUseCase kioskCheckInUseCase(KioskRepository repository) {
     return KioskCheckInUseCase(repository);
+  }
+
+  @lazySingleton
+  LoginUseCase loginUseCase(KioskRepository repository, AuthTokenManager authTokenManager) {
+    return LoginUseCase(repository, authTokenManager);
   }
 
   @lazySingleton
