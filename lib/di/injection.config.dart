@@ -72,8 +72,10 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i800.AuthRepository>(),
           gh<_i702.AuthTokenManager>(),
         ));
-    gh.factory<_i1050.LoginViewModel>(
-        () => _i1050.LoginViewModel(gh<_i634.LoginUseCase>()));
+    gh.factory<_i1050.LoginViewModel>(() => _i1050.LoginViewModel(
+          gh<_i634.LoginUseCase>(),
+          gh<_i702.AuthTokenManager>(),
+        ));
     gh.lazySingleton<_i5.GetKioskStatusUseCase>(() =>
         registerModule.getKioskStatusUseCase(gh<_i587.KioskRepository>()));
     gh.lazySingleton<_i649.GetEmployeeCandidatesUseCase>(() => registerModule
@@ -86,6 +88,7 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i649.GetEmployeeCandidatesUseCase>(),
               gh<_i440.KioskCheckInUseCase>(),
               gh<_i895.Connectivity>(),
+              gh<_i702.AuthTokenManager>(),
             ));
     return this;
   }

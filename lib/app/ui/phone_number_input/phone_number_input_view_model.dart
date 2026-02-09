@@ -7,6 +7,7 @@ import 'package:injectable/injectable.dart';
 import 'package:gongbab/app/ui/phone_number_input/phone_number_input_ui_state.dart';
 import 'package:gongbab/app/ui/phone_number_input/phone_number_input_event.dart';
 import 'package:gongbab/domain/entities/lookup/employee_match.dart';
+import 'package:gongbab/data/auth/auth_token_manager.dart';
 
 @injectable
 class PhoneNumberInputViewModel extends ChangeNotifier {
@@ -14,12 +15,14 @@ class PhoneNumberInputViewModel extends ChangeNotifier {
   final GetEmployeeCandidatesUseCase _getEmployeeCandidatesUseCase;
   final KioskCheckInUseCase _kioskCheckInUseCase;
   final Connectivity _connectivity;
+  final AuthTokenManager _authTokenManager;
 
   PhoneNumberInputViewModel(
     this._getKioskStatusUseCase,
     this._getEmployeeCandidatesUseCase,
     this._kioskCheckInUseCase,
     this._connectivity,
+    this._authTokenManager,
   );
 
   PhoneNumberInputUiState _uiState = Initial();
@@ -48,9 +51,14 @@ class PhoneNumberInputViewModel extends ChangeNotifier {
   Future<void> _fetchKioskStatus() async {
     _setUiState(Loading());
 
-    const int restaurantId = 092;
-    const String kioskCode = "FCT-092";
+    final int? restaurantId = _authTokenManager.getRestaurantId();
+    final String? kioskCode = _authTokenManager.getKioskCode();
     final String clientTime = DateTime.now().toIso8601String();
+
+    if (restaurantId == null || kioskCode == null) {
+      _setUiState(Error('Restaurant ID or Kiosk Code not found. Please log in again.'));
+      return;
+    }
 
     final connectivityResult = await _connectivity.checkConnectivity();
     final isWifiConnected = connectivityResult.contains(ConnectivityResult.wifi);
@@ -77,7 +85,12 @@ class PhoneNumberInputViewModel extends ChangeNotifier {
   Future<void> _getEmployeeCandidates(String phoneNumber) async {
     _setUiState(Loading());
 
-    const int restaurantId = 092;
+    final int? restaurantId = _authTokenManager.getRestaurantId();
+
+    if (restaurantId == null) {
+      _setUiState(Error('Restaurant ID not found. Please log in again.'));
+      return;
+    }
 
     final result = await _getEmployeeCandidatesUseCase.execute(
       restaurantId: restaurantId,
@@ -107,12 +120,19 @@ class PhoneNumberInputViewModel extends ChangeNotifier {
     _setUiState(Loading());
 
     final String clientTime = DateTime.now().toIso8601String();
+    final int? restaurantId = _authTokenManager.getRestaurantId();
+    final String? kioskCode = _authTokenManager.getKioskCode();
+
+    if (restaurantId == null || kioskCode == null) {
+      _setUiState(Error('Restaurant ID or Kiosk Code not found. Please log in again.'));
+      return;
+    }
 
     final result = await _kioskCheckInUseCase.execute(
       employeeId: employee.employeeId,
       clientTime: clientTime,
-      restaurantId: 092,
-      kioskCode: 'FCT-092',
+      restaurantId: restaurantId,
+      kioskCode: kioskCode,
     );
 
     result.when(
