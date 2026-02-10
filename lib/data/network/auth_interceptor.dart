@@ -14,8 +14,8 @@ class AuthInterceptor extends Interceptor {
   void onRequest(
     RequestOptions options,
     RequestInterceptorHandler handler,
-  ) async {
-    final accessToken = await _authTokenManager.getAccessToken();
+  ) {
+    final accessToken = _authTokenManager.getAccessToken();
     if (accessToken != null && !options.path.contains('/auth/refresh')) {
       options.headers['Authorization'] = 'Bearer $accessToken';
     }
@@ -26,9 +26,9 @@ class AuthInterceptor extends Interceptor {
   void onError(DioException err, ErrorInterceptorHandler handler) async {
     final statusCode = err.response?.statusCode;
 
-    // If the refresh token request itself failed, or if it's a 403 (refresh token invalid)
-    if (err.requestOptions.path.contains('/auth/refresh') ||
-        statusCode == 403) {
+    // If the refresh token request itself failed and if it's a 401 (refresh token invalid)
+    if (err.requestOptions.path.contains('/auth/refresh') &&
+        statusCode == 401) {
       await _authTokenManager.clearTokens();
       return handler
           .next(err); // Propagate the error, router will handle navigation
@@ -37,7 +37,7 @@ class AuthInterceptor extends Interceptor {
     // Handle 401 (access token invalid)
     if (statusCode == 401) {
       try {
-        final refreshToken = await _authTokenManager.getRefreshToken();
+        final refreshToken = _authTokenManager.getRefreshToken();
         if (refreshToken == null) {
           await _authTokenManager.clearTokens();
           return handler.next(err); // No refresh token, propagate error
@@ -57,7 +57,7 @@ class AuthInterceptor extends Interceptor {
         );
 
         // Retry the original request with new access token
-        final newAccessToken = await _authTokenManager.getAccessToken();
+        final newAccessToken = _authTokenManager.getAccessToken();
         err.requestOptions.headers['Authorization'] = 'Bearer $newAccessToken';
 
         // Create a new request with the updated headers
