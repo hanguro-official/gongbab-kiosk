@@ -21,11 +21,16 @@ jobs:
           channel: 'stable'
           cache: true
 
+      - name: Create API config file
+        run: |
+          mkdir -p lib/config
+          echo "const String baseUrl = '${{ secrets.BASE_URL }}';" > lib/config/api_config.dart
+
       - name: Install dependencies
         run: flutter pub get
 
       - name: Build Flutter web app
-        run: flutter build web --release --base-href /gongbab-kiosk/ --dart-define=BASE_URL=${{ secrets.BASE_URL }}
+        run: flutter build web --release --base-href /gongbab-kiosk/
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
