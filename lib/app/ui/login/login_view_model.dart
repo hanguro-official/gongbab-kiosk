@@ -24,11 +24,10 @@ class LoginViewModel extends ChangeNotifier {
       notifyListeners();
 
       final deviceId = await _deviceInfoService.getDeviceId();
-      final deviceType = _deviceInfoService.getDeviceType();
 
       final result = await _loginUseCase.execute(
         code: '${event.phoneNumber}${event.password}',
-        deviceType: deviceType,
+        deviceType: 'KIOSK',
         deviceId: deviceId,
       );
 

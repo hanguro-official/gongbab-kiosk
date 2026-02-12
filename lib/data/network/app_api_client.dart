@@ -1,11 +1,10 @@
 import 'package:dio/dio.dart';
-import 'package:pretty_dio_logger/pretty_dio_logger.dart';
-import 'package:injectable/injectable.dart';
-import 'package:gongbab/data/network/rest_api_client.dart';
 import 'package:gongbab/config/api_config.dart';
 import 'package:gongbab/data/auth/auth_token_manager.dart';
-import 'package:gongbab/data/network/api_service.dart';
 import 'package:gongbab/data/network/auth_interceptor.dart';
+import 'package:gongbab/data/network/rest_api_client.dart';
+import 'package:injectable/injectable.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 @singleton
 class AppApiClient extends RestApiClient {
@@ -25,7 +24,7 @@ class AppApiClient extends RestApiClient {
       responseHeader: false,
       error: true,
       compact: true,
-      maxWidth: 90,
+      maxWidth: 130,
     ));
     dio.interceptors.add(AuthInterceptor(authTokenManager, dio));
   }
