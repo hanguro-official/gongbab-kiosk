@@ -86102,7 +86102,7 @@ $0(){var s,r="application/json",q=this.a,p=q.$1$0(t.aE)
 q=q.$1$0(t.kE)
 s=q.qi$
 s===$&&A.a()
-s.sGn("")
+s.sGn("https://gongbab-backend-production.up.railway.app")
 q.qi$.sGM(B.DK)
 s=q.qi$
 s.e=B.DG
