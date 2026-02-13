@@ -26,6 +26,12 @@ jobs:
           mkdir -p lib/config
           echo "const String baseUrl = '${{ secrets.BASE_URL }}';" > lib/config/api_config.dart
 
+      - name: Verify API config file content
+        run: cat lib/config/api_config.dart
+
+      - name: Clean Flutter project
+        run: flutter clean
+
       - name: Install dependencies
         run: flutter pub get
 
