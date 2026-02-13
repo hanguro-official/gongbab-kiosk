@@ -10,7 +10,7 @@ void main() async {
   await configureDependencies();
 
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor: Color(0xFF1a1f2e),
+    statusBarColor: Colors.transparent,
     statusBarIconBrightness: Brightness.light,
   ));
   runApp(const MyApp());
