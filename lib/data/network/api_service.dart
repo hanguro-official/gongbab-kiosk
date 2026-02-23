@@ -55,7 +55,7 @@ class ApiService {
   }) async {
     return _appApiClient.request(
       method: RestMethod.get,
-      path: '/api/v1/restaurants/$restaurantId/kiosk/employees/lookup',
+      path: '/api/v1/restaurants/$restaurantId/kiosks/employees/lookup',
       queryParameters: {
         'phoneLastFour': phoneLastFour,
       },
@@ -71,7 +71,7 @@ class ApiService {
   }) async {
     return _appApiClient.request(
       method: RestMethod.post,
-      path: '/api/v1/restaurants/$restaurantId/kiosk/check-in',
+      path: '/api/v1/restaurants/$restaurantId/kiosks/check-in',
       data: {
         'employeeId': employeeId,
         'kioskCode': kioskCode,
