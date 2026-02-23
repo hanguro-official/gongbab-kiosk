@@ -8,6 +8,7 @@ import 'package:gongbab/app/ui/phone_number_input/phone_number_input_ui_state.da
 import 'package:gongbab/app/ui/phone_number_input/phone_number_input_event.dart';
 import 'package:gongbab/domain/entities/lookup/employee_match.dart';
 
+import 'package:gongbab/app/ui/common_widgets/custom_alert_dialog.dart';
 import '../select_name/select_name_dialog.dart';
 
 class PhoneNumberInputScreen extends StatefulWidget {
@@ -82,16 +83,24 @@ class _PhoneNumberInputScreenState extends State<PhoneNumberInputScreen> {
       context.push(AppRoutes.success);
       _resetPin();
     } else if (state is AlreadyLogged) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(state.message)),
-      );
-      _resetPin();
+      _showCustomDialog(title: '중복 체크', message: state.message);
     } else if (state is Error) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('오류: ${state.message}')),
-      );
-      _resetPin();
+      _showCustomDialog(title: '오류', message: state.message);
     }
+  }
+
+  void _showCustomDialog({required String title, required String message}) {
+    showDialog(
+      context: context,
+      builder: (context) => CustomAlertDialog(
+        title: title,
+        content: message,
+        rightButtonText: '확인',
+        onRightButtonPressed: () {
+          // Dialog is popped automatically by the button
+        },
+      ),
+    ).then((_) => _resetPin());
   }
 
   void onNumberPressed(String number) {
