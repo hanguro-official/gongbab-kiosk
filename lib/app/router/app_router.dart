@@ -15,10 +15,10 @@ class AppRouter {
 
   AppRouter(this._authTokenManager) {
     router = GoRouter(
-      initialLocation: AppRoutes.root,
+      refreshListenable: _authTokenManager,
       routes: <RouteBase>[
         GoRoute(
-          path: AppRoutes.root,
+          path: AppRoutes.login,
           builder: (BuildContext context, GoRouterState state) {
             return const LoginScreen();
           },
@@ -42,18 +42,30 @@ class AppRouter {
 
   @visibleForTesting // Make it visible for testing
   String? redirectLogic(BuildContext context, GoRouterState state) {
-    final accessToken = _authTokenManager.getAccessToken();
-    final refreshToken = _authTokenManager.getRefreshToken();
+    final loggedIn = _authTokenManager.getAccessToken() != null &&
+        _authTokenManager.getRefreshToken() != null;
+    final loggingIn = state.matchedLocation == AppRoutes.login;
+    final currentPath = state.matchedLocation; // Get the current path
 
-    final loggedIn = accessToken != null && refreshToken != null;
-    final goingToLogin = state.matchedLocation == AppRoutes.root;
-
-    if (!loggedIn && !goingToLogin) {
-      return AppRoutes.root;
+    // if the user is not logged in, they need to login
+    if (!loggedIn) {
+      return loggingIn ? null : AppRoutes.login;
     }
-    if (loggedIn && goingToLogin) {
+
+    // if the user is logged in but still on the login page, send them to
+    // the home page
+    if (loggingIn) {
       return AppRoutes.phoneNumberInput;
     }
+
+    // If logged in and not on the login page, and the token was just refreshed,
+    // we want to stay on the current page.
+    // This is the crucial part to prevent unwanted navigation after a successful refresh.
+    if (loggedIn && !loggingIn) {
+      return currentPath; // Stay on the current path
+    }
+
+    // Fallback: no need to redirect at all (should ideally not be reached with the above logic)
     return null;
   }
 }

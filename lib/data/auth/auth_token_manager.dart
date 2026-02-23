@@ -1,8 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 @lazySingleton
-class AuthTokenManager {
+class AuthTokenManager extends ChangeNotifier {
   static const String _accessTokenKey = 'access_token';
   static const String _refreshTokenKey = 'refresh_token';
   static const String _restaurantIdKey = 'restaurant_id';
@@ -15,11 +16,13 @@ class AuthTokenManager {
   Future<void> saveTokens(String accessToken, String refreshToken) async {
     await _sharedPreferences.setString(_accessTokenKey, accessToken);
     await _sharedPreferences.setString(_refreshTokenKey, refreshToken);
+    notifyListeners();
   }
 
   Future<void> saveRestaurantInfo(int restaurantId, String kioskCode) async {
     await _sharedPreferences.setInt(_restaurantIdKey, restaurantId);
     await _sharedPreferences.setString(_kioskCodeKey, kioskCode);
+    notifyListeners();
   }
 
   String? getAccessToken() {
@@ -43,5 +46,6 @@ class AuthTokenManager {
     await _sharedPreferences.remove(_refreshTokenKey);
     await _sharedPreferences.remove(_restaurantIdKey);
     await _sharedPreferences.remove(_kioskCodeKey);
+    notifyListeners();
   }
 }
