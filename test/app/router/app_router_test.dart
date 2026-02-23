@@ -34,14 +34,14 @@ void main() {
       final redirectPath = appRouter.redirectLogic(mockContext, mockGoRouterState);
 
       // Assert
-      expect(redirectPath, AppRoutes.root);
+      expect(redirectPath, AppRoutes.login);
     });
 
     test('does not redirect if no tokens and already on login route', () async {
       // Arrange
       when(mockAuthTokenManager.getAccessToken()).thenReturn(null);
       when(mockAuthTokenManager.getRefreshToken()).thenReturn(null);
-      when(mockGoRouterState.matchedLocation).thenReturn(AppRoutes.root);
+      when(mockGoRouterState.matchedLocation).thenReturn(AppRoutes.login);
 
       // Act
       final redirectPath = appRouter.redirectLogic(mockContext, mockGoRouterState);
@@ -54,7 +54,7 @@ void main() {
       // Arrange
       when(mockAuthTokenManager.getAccessToken()).thenReturn('token');
       when(mockAuthTokenManager.getRefreshToken()).thenReturn('token');
-      when(mockGoRouterState.matchedLocation).thenReturn(AppRoutes.root);
+      when(mockGoRouterState.matchedLocation).thenReturn(AppRoutes.login);
 
       // Act
       final redirectPath = appRouter.redirectLogic(mockContext, mockGoRouterState);
